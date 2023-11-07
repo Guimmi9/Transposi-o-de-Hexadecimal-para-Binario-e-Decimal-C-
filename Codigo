@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+//Cogigo para transpor de Hexadecimal para decimal//
+
+int hexToDecimal(char hex) {
+    if (hex >= '0' && hex <= '9') {
+        return hex - '0';
+    } else 
+    if (hex >= 'A' && hex <= 'F') {
+        return hex - 'A' + 10;
+    } else 
+    if (hex >= 'a' && hex <= 'f') {
+        return hex - 'a' + 10;
+    } else {
+        printf("Caractere hexadecimal inválido: %c\n", hex);
+        exit(1);
+
+//Caso não siga os parametros o numero não é hexadecimal//
+
+    }
+}
+
+//Cogigo para transpor de Hexadecimal para Binario//
+
+void hexToBinary(char hex) {
+    int decimal = hexToDecimal(hex);
+    for (int i = 3; i >= 0; i--) {
+        int bit = (decimal >> i) & 1;
+        printf("%d", bit);
+    }
+    printf(" ");
+}
+
+//Frontend//
+
+int main() {
+    char hex[100];
+    printf("Digite um número hexadecimal: ");
+    scanf("%s", hex);
+
+    printf("Número Decimal: ");
+    int decimal = 0;
+    int hexLength = 0;
+    for (int i = 0; hex[i] != '\0'; i++) {
+        hexLength++;
+    }
+    for (int i = 0; hex[i] != '\0'; i++) {
+        hexLength--;
+        decimal += hexToDecimal(hex[i]) * pow(16, hexLength);
+    }
+    printf("%d\n", decimal);
+
+    printf("Número Binário: ");
+    for (int i = 0; hex[i] != '\0'; i++) {
+        hexToBinary(hex[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
